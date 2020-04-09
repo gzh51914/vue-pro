@@ -1,29 +1,32 @@
-<template>
-  <div id="app">
-    <nav class="nav">
-      <ul>
-        <router-link 
-          v-for="nav in navlist"
-          :key="nav.id"
-          :to="nav.path"
-          tag="li"
-          active-class="active"
-        >{{nav.title}}</router-link>
-      </ul>
-    </nav>
-  
-   <router-view></router-view>
-  </div>
-</template>
+  <template>
+    <div id="app">
+      <nav>
+        <ul>
+          <router-link
+            v-for="nav in navlist"
+            :key="nav.id"
+            :to="nav.path"
+            tag="li"
+            active-class="active"
+          >
+            <i class="iconfont" :class="nav.icon" ></i>
+            <span>{{nav.title}}</span>
+          </router-link>
+        </ul>
+      </nav>
+    
+    <router-view></router-view>
+    </div>
+  </template>
 <script>
 export default {
   data() {
     return {
       navlist:[
-        {id:1,title:"电影",path:"/films"},
-        {id:2,title:"影院",path:"/cinema"},
-        {id:3,title:"资讯",path:"/info"},
-        {id:4,title:"个人",path:"/center"}
+        {id:1,title:"电影",path:"/films",icon:"icon-dianying"},
+        {id:2,title:"影院",path:"/cinema",icon:"icon-yingyuan"},
+        {id:3,title:"资讯",path:"/info",icon:"icon-zaixianwenzhen_xianxingzaixianzixun"},
+        {id:4,title:"个人",path:"/center",icon:"icon-wode"}
       ]
     }
   },
@@ -40,21 +43,24 @@ ul,ol,li{
 .active{
   color: orange;
 }
-  .nav{
-    width: 100%;
-    height: 40px;
+ nav{
     position: fixed;
-    bottom: 0px;
-    left: 0px;
+    left:0px;
+    bottom:0px;
+    width:100%;
+    height:0.4rem;
+    background: #fff;
+    z-index:10;
     ul{
       display: flex;
       li{
-      flex: 1;
-      line-height: 40px;
-      text-align: center;
+        flex:1;
+        line-height: 0.2rem;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+      }
     }
-    }
-    
   }
 </style>
 
