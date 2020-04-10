@@ -51,6 +51,7 @@ ul,ol,li{
     height:0.4rem;
     background: #fff;
     z-index:10;
+    box-shadow: 0px -5px 5px #f5f5f5;
     ul{
       display: flex;
       li{
