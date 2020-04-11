@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Films from "@/views/Films"
-import Cinema from "@/views/Cinema"
+// import Cinema from "@/views/Cinema"
 import Center from "@/views/Center"
 import Info from "@/views/Info"
 
@@ -12,9 +12,17 @@ Vue.use(VueRouter)
     path: '/films',
     component: Films
   },
+  {   
+    path:"/cinema",
+    component:()=>import("@/views/Cinema")
+  },
   {
-    path: '/cinema',
-    component: Cinema
+    path:"/cinema/search",
+    component:()=>import("@/views/Search")
+  },
+  {
+    path:"/city",
+    component:()=>import("@/views/City"),
   },
   {
     path: '/center',
