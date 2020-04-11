@@ -1,67 +1,38 @@
-  <template>
-    <div id="app">
-      <nav>
-        <ul>
-          <router-link
-            v-for="nav in navlist"
-            :key="nav.id"
-            :to="nav.path"
-            tag="li"
-            active-class="active"
-          >
-            <i class="iconfont" :class="nav.icon" ></i>
-            <span>{{nav.title}}</span>
-          </router-link>
-        </ul>
-      </nav>
-    
-    <router-view></router-view>
-    </div>
-  </template>
+<template>
+  <div id="app">
+    <!--路由容器 基于slot进行封装的  根据url路径显示不同的路由组件-->
+      <router-view></router-view>
+      <Tabbar></Tabbar>
+  </div>
+</template>
 <script>
+// 引入Tabbar组件
+import Tabbar from "@/components/Tabbar"
+import { mapState } from "vuex"
 export default {
-  data() {
-    return {
-      navlist:[
-        {id:1,title:"电影",path:"/films",icon:"icon-dianying"},
-        {id:2,title:"影院",path:"/cinema",icon:"icon-yingyuan"},
-        {id:3,title:"资讯",path:"/info",icon:"icon-zaixianwenzhen_xianxingzaixianzixun"},
-        {id:4,title:"个人",path:"/center",icon:"icon-wode"}
-      ]
-    }
-  },
+  components:{
+    Tabbar
+  }
+ 
 }
 </script>
-<style lang="scss" scoped>
-*{
-  margin: 0;
-  padding: 0;
-}
-ul,ol,li{
-  list-style: none;
-}
-.active{
-  color: orange;
-}
- nav{
-    position: fixed;
-    left:0px;
-    bottom:0px;
-    width:100%;
-    height:0.4rem;
-    background: #fff;
-    z-index:10;
-    box-shadow: 0px -5px 5px #f5f5f5;
-    ul{
-      display: flex;
-      li{
-        flex:1;
-        line-height: 0.2rem;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
+
+<style lang="scss">
+    .app-enter-active{
+      animation: move .5s;
+    }
+    .app-leave-active{
+      animation: move .5s reverse;
+    }
+
+    @keyframes move{
+      0%{
+        opacity: 0;
+        transform: translateY(50px)
+      }
+      100%{
+        opacity: 1;
+        transform: translateY(0px)
       }
     }
-  }
 </style>
-

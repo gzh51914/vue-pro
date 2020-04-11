@@ -1,9 +1,10 @@
 <template>
     <div class="login">
         <form @submit.prevent="login">
-            <van-field v-model="username" label="用户:" />
-            <van-field v-model="password" type="password" label="密码：" />
-            <van-button type="primary">登录</van-button>
+            <van-field v-model="username" label="用户:" placeholder="admin" />
+            <van-field v-model="password" type="password" label="密码:" placeholder="admin" />
+            <van-button type="primary" @click="reg">注册</van-button>
+            <van-button type="primary" @click="login">登录</van-button>
         </form>
     </div>
 </template>
@@ -11,6 +12,7 @@
 <script>
 import Vue from 'vue'
 import { Button, Field, Dialog } from 'vant'
+
 
 import { instance2 } from "@/utils/http"
 Vue.use(Button)
@@ -20,14 +22,25 @@ export default {
   data () {
     return {
       username:'',
-      password:''
+      password:'',
+      msg:''
     }
   },
   methods:{
+    reg(){
+      if (!this.username.trim() || !this.password.trim()) {
+        Dialog({
+          message: "用户名或者密码必须要填！",
+          closeOnClickOverlay:true
+        })
+        return
+      }
+
+    },
     login () {
       if (!this.username.trim() || !this.password.trim()) {
         Dialog({
-          message: "用户名或者密码必须要传！",
+          message: "用户名或者密码必须要填！",
           closeOnClickOverlay:true
         })
         return
@@ -53,9 +66,11 @@ export default {
     .login{
         padding: 10px;
         margin-top:1.46rem;
+        text-align: center;
         button{
-            width:100%;
+            width:30%;
             margin-top:10px;
+            margin-right: .2rem;
         }
     }
 </style>
