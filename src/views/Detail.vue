@@ -1,5 +1,18 @@
 <template>
   <div>
+    <div>
+      <van-dialog
+        v-model="dialogshow"
+        message="该电影目前没有排期，到首页看其他电影吧"
+        confirmButtonText="同意"
+        confirmButtonColor="#ff5f16"
+        cancelButtonText="拒绝"
+        confirm="yes()"
+        show-cancel-button
+        :beforeClose="yes"
+      ></van-dialog>
+    </div>
+
     <van-icon
       class-prefix="my-icon"
       name="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADoAAAA6CAMAAADWZboaAAAAt1BMVEVHcEz///////////////////////////////////////////////////////////////////////////////////97e3saGxyIiYnW1tYdHh9UVVUpKiulpaXLy8s6OzyysrIiIyPx8fEeHyC/v7/5+fklJihCQ0Ntb28bHB1hYWKXl5c0NTZLS0xAQUI4ODk3ODjh4eHr6+s2Nzfq6uptbm5gYGIbHB39/f2VlZdLS0wzNDUZGhs8UYRWAAAAPHRSTlMAGHpLE3cKgEdgVnJfNBZ+cBx9A28js/6sjPvK7p+Q3pn1g/iUgfLYuvzCpeTR2eHiiIXihrvD/YCl0uTUXbEtAAABd0lEQVRIx91W13KDQAw0xnCHARuDe+/dKY7T9f/flTzghCLdMaMXj/eRnZ0T0qqUSveBim96gRWGVuCZfqW4zpCuSMGVRiFhwxEInIY+0qogUFXHHcm6IFGXEa20HaGEY1PKWlNo0KzhylZZaFFuoW8WUP5qkXdtMtrnx4dkzLn/jcgMXY7wlMpVNs+SUs4nMOylvsiME6h6rjawHmfqm/YG6aETzJY5X6V8SykHsJjmvyb9TOVoD/0R5qpElxHKLewOKGHo0tuGThdn/pPsony3A20iHPevMih92MGW9OO1Pj5Gjvqwp63sx1IT4aYLGCi6wIylXp5azuCkaiAvlgY5ZryGzUolDWKplSV6Q5jMlW1rxdIwS7zA8azu+JCWfl+KSRkBM9KEF+fro0BxGJagjPimNyJp/1et/RlNx2l1esC8f2oGDGOscYYpY4RzFgdjXSmW5Fm3JBmrmXMQcM4QzvHDObk4hx7nvGQdtaxTmnXA3zR+AH8JUdNL967cAAAAAElFTkSuQmCC"
@@ -30,7 +43,7 @@
           <van-image
             width=".85rem"
             height=".85rem"
-            fit="contain"
+            fit="cover"
             :src="data.avatarAddress"
             lazy-load
           />
@@ -53,9 +66,8 @@
     <van-button v-if="detail.isSale" type="primary" size="large" color="#ff5f16">选座购票</van-button>
 
     <Photo v-show="isPhotoShow" :list="detail.photos">
-            <m-title @back="handlePhoto" :title="photolength">
-            </m-title>
-        </Photo>
+      <m-title @back="handlePhoto" :title="photolength"></m-title>
+    </Photo>
   </div>
 </template>
 
@@ -63,61 +75,93 @@
 import Vue from "vue";
 import { instance } from "@/utils/http";
 import dateFilter from "@/utils/filters";
-import Photo from '@/views/details/Photos'
-import { Cell, CellGroup, Image, Lazyload, ImagePreview, Button,Icon } from "vant";
+import Photo from "@/views/details/Photos";
+import { mapMutations } from "vuex"
+import {
+  Cell,
+  CellGroup,
+  Image,
+  Lazyload,
+  ImagePreview,
+  Button,
+  Icon,
+  Dialog
+} from "vant";
 
 Vue.use(Cell)
   .use(CellGroup)
   .use(Image)
   .use(Lazyload)
   .use(ImagePreview)
-  .use(Button).use(Icon);
+  .use(Button)
+  .use(Icon);
 
-Vue.directive("title",{
-    inserted(el,binding){
-        el.style.opacity = "0"
-        el.style.transition = "all 1s"
-        window.onscroll = ()=>{
-            if((document.body.scrollTop || document.documentElement.scrollTop)>binding.value){
-                el.style.opacity = "1"
-            }else{
-                el.style.opacity = "0"
-            }
-        }
-    },
-    unbind(){
-        window.onscroll = null
-    }
-})
+Vue.directive("title", {
+  inserted(el, binding) {
+    el.style.opacity = "0";
+    el.style.transition = "all 1s";
+    window.onscroll = () => {
+      if (
+        (document.body.scrollTop || document.documentElement.scrollTop) >
+        binding.value
+      ) {
+        el.style.opacity = "1";
+      } else {
+        el.style.opacity = "0";
+      }
+    };
+  },
+  unbind() {
+    window.onscroll = null;
+  }
+});
 
 export default {
-  components:{
-        Photo
-    },
+  components: {
+    Photo,
+    [Dialog.Component.name]: Dialog.Component
+  },
   data() {
     return {
+      dialogshow: true,
       isActive: true,
       detail: [],
       category: [],
       photolength: "",
-      isPhotoShow:false
+      isPhotoShow: false
     };
   },
   methods: {
+    ...mapMutations("tabbar", ["hide", "show"]),
+    yes(action, done) {
+      if (action === "cancel") {
+        //取消按钮
+        done();
+      } else if (action === "confirm") {
+        //确定按钮
+        this.$router.push("/films");
+      }
+    },
     previewImg(index) {
       ImagePreview({
         images: this.detail.photos,
         startPosition: index,
         closeable: true,
-        closeIconPosition: "top-left",
-      })
+        closeIconPosition: "top-left"
+      });
     },
-    handleBack(){
-      this.$router.back()
+    handleBack() {
+      this.$router.back();
     },
-    handlePhoto(){
-            this.isPhotoShow = false
-        }
+    handlePhoto() {
+      this.isPhotoShow = false;
+    }
+  },
+  mounted() {
+    this.hide()
+  },
+  destroyed () {
+    this.show()
   },
   created() {
     instance
@@ -207,7 +251,7 @@ img {
   }
 }
 .photos {
-  height: 2rem !important;
+  height: 3rem !important;
 }
 .van-cell-group {
   margin-top: 0.1rem;
@@ -216,7 +260,7 @@ img {
 
   .roll {
     display: flex;
-    height: 2rem;
+    height: 4rem;
     margin: 0 0.15rem;
     overflow-x: scroll;
     li {

@@ -1,60 +1,40 @@
 <template>
   <div id="app">
-    <nav class="nav">
-      <ul>
-        <router-link 
-          v-for="nav in navlist"
-          :key="nav.id"
-          :to="nav.path"
-          tag="li"
-          active-class="active"
-        >{{nav.title}}</router-link>
-      </ul>
-    </nav>
-  
-   <router-view></router-view>
+    <!--路由容器 基于slot进行封装的  根据url路径显示不同的路由组件-->
+      <router-view></router-view>
+      <Tabbar v-show="isTabbarShow"></Tabbar>
   </div>
 </template>
 <script>
+// 引入Tabbar组件
+import Tabbar from "@/components/Tabbar"
+import { mapState } from "vuex"
 export default {
-  data() {
-    return {
-      navlist:[
-        {id:1,title:"电影",path:"/films"},
-        {id:2,title:"影院",path:"/cinema"},
-        {id:3,title:"资讯",path:"/info"},
-        {id:4,title:"个人",path:"/center"}
-      ]
-    }
+  components:{
+    Tabbar
   },
+ computed:{
+    ...mapState("tabbar", ["isTabbarShow"])
+  }
 }
 </script>
-<style lang="scss" scoped>
-*{
-  margin: 0;
-  padding: 0;
-}
-ul,ol,li{
-  list-style: none;
-}
-.active{
-  color: orange;
-}
-  .nav{
-    width: 100%;
-    height: 40px;
-    position: fixed;
-    bottom: 0px;
-    left: 0px;
-    ul{
-      display: flex;
-      li{
-      flex: 1;
-      line-height: 40px;
-      text-align: center;
-    }
-    }
-    
-  }
-</style>
 
+<style lang="scss">
+    .app-enter-active{
+      animation: move .5s;
+    }
+    .app-leave-active{
+      animation: move .5s reverse;
+    }
+
+    @keyframes move{
+      0%{
+        opacity: 0;
+        transform: translateY(50px)
+      }
+      100%{
+        opacity: 1;
+        transform: translateY(0px)
+      }
+    }
+</style>

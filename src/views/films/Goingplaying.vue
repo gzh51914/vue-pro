@@ -26,6 +26,7 @@
 <script>
 import Vue from "vue";
 import { instance } from "@/utils/http";
+import { mapState } from "vuex";
 import dayFilter from "@/utils/filters";
 
 export default {
@@ -34,15 +35,17 @@ export default {
       films: []
     };
   },
+    computed:{
+    ...mapState("city",["cityId"])
+  },
   created() {
     instance
-      .get("/gateway?cityId=440500&pageNum=1&pageSize=10&type=2&k=5149085", {
+      .get(`/gateway?cityId=${this.cityId}&pageNum=1&pageSize=10&type=2&k=5149085`, {
         headers: {
           "X-Host": "mall.film-ticket.film.list"
         }
       })
       .then(res => {
-        console.log(res.data.data);
         this.films = res.data.data.films;
       });
   }
@@ -50,7 +53,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-h4{
-  margin-bottom: .2rem;
+h4 {
+  margin-bottom: 0.2rem;
 }
 </style>

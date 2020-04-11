@@ -31,8 +31,9 @@
 <script>
 import Vue from "vue";
 import actorFilter from "@/utils/filters";
-
 import { instance } from "@/utils/http";
+import { mapState } from "vuex";
+
 import { Button } from "vant";
 
 Vue.use(Button);
@@ -43,9 +44,12 @@ export default {
       films: []
     };
   },
+  computed: {
+    ...mapState("city", ["cityId"])
+  },
   created() {
     instance
-      .get("/gateway?cityId=440500&pageNum=1&pageSize=10&type=1&k=4458734", {
+      .get(`/gateway?cityId=${this.cityId}&pageNum=1&pageSize=10&type=1&k=4458734`, {
         headers: {
           "X-Host": "mall.film-ticket.film.list"
         }
