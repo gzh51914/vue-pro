@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import Films from "@/views/Films"
+
 import Cinema from "@/views/Cinema"
 import Center from "@/views/Center"
 import Info from "@/views/Info"
@@ -36,17 +37,12 @@ const routes = [{
     component:()=>import("@/views/Cinema")
   },
   {
-<<<<<<< Updated upstream
-    path: '/cinema',
-    component: Cinema
-=======
     path:"/cinema/search",
     component:()=>import("@/views/Search")
   },
   {
     path:"/city",
     component:()=>import("@/views/City"),
->>>>>>> Stashed changes
   },
   {
     path: '/center',

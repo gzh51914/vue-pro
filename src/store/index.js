@@ -1,18 +1,8 @@
+
 import Vue from 'vue'
 import Vuex from 'vuex'
 
 Vue.use(Vuex)
-<<<<<<< Updated upstream
-
-export default new Vuex.Store({
-  state: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
-  modules: {
-=======
 const store = new Vuex.Store({
   //实现了对于vuex的持久化存储
   plugins: [createPersistedState({
@@ -29,6 +19,5 @@ const store = new Vuex.Store({
     cinema, // 影院的模块
     tabbar, // tabbar的模块
     city // 城市的模块
->>>>>>> Stashed changes
   }
 })

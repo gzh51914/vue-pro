@@ -1,8 +1,4 @@
 <template>
-<<<<<<< Updated upstream
-  <div>
-      Cinema....
-=======
   <div class="cinema">
     <div class="title">
       <div class="left" @click="handleChangePage('/city')">
@@ -53,20 +49,10 @@
         ></CinemaItem>
       </ul>
     </div>
->>>>>>> Stashed changes
   </div>
 </template>
 
 <script>
-<<<<<<< Updated upstream
-export default {
-
-}
-</script>
-
-<style>
-
-=======
 import Vue from "vue";
 // import { instance } from "@/utils/http"
 import CinemaItem from "./Cinema/CinemaItem";
@@ -275,5 +261,4 @@ export default {
   position: relative;
   top: 0.8rem;
 }
->>>>>>> Stashed changes
 </style>
