@@ -2,7 +2,7 @@
   <div id="app">
     <!--路由容器 基于slot进行封装的  根据url路径显示不同的路由组件-->
       <router-view></router-view>
-      <Tabbar></Tabbar>
+      <Tabbar v-show="isTabbarShow"></Tabbar>
   </div>
 </template>
 <script>
@@ -12,8 +12,11 @@ import { mapState } from "vuex"
 export default {
   components:{
     Tabbar
-  }
+  },
  
+ computed:{
+    ...mapState("tabbar", ["isTabbarShow"])
+  }
 }
 </script>
 
