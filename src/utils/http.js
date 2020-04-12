@@ -7,7 +7,7 @@ const instance = axios.create({
  
 })
 
-// 针对于上线的 http://47.96.0.211:3000
+// 针对于上线的 
 const instance2 = axios.create({
   baseURL: '/info'
 })

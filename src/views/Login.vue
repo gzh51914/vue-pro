@@ -1,10 +1,10 @@
 <template>
     <div class="login">
         <form @submit.prevent="login">
-            <van-field v-model="username" label="用户:" placeholder="admin" />
-            <van-field v-model="password" type="password" label="密码:" placeholder="admin" />
-            <van-button type="primary" @click="reg">注册</van-button>
-            <van-button type="primary" @click="login">登录</van-button>
+            <van-field v-model="username" label="用户:" name="username" placeholder="admin" />
+            <van-field v-model="password" type="password" label="密码:" name="password" placeholder="admin" />
+            <van-button type="primary">注册</van-button>
+            <van-button type="primary" >登录</van-button>
         </form>
     </div>
 </template>
@@ -12,7 +12,6 @@
 <script>
 import Vue from 'vue'
 import { Button, Field, Dialog } from 'vant'
-
 
 import { instance2 } from "@/utils/http"
 Vue.use(Button)
@@ -22,25 +21,14 @@ export default {
   data () {
     return {
       username:'',
-      password:'',
-      msg:''
+      password:''
     }
   },
   methods:{
-    reg(){
-      if (!this.username.trim() || !this.password.trim()) {
-        Dialog({
-          message: "用户名或者密码必须要填！",
-          closeOnClickOverlay:true
-        })
-        return
-      }
-
-    },
     login () {
       if (!this.username.trim() || !this.password.trim()) {
         Dialog({
-          message: "用户名或者密码必须要填！",
+          message: "用户名或者密码必须要传！",
           closeOnClickOverlay:true
         })
         return
@@ -53,9 +41,10 @@ export default {
         localStorage.setItem("token", res.token)
         // 跳转到个人中心
         this.$router.replace("/center")
-      }).catch(err => {
-        Dialog({ message: err, closeOnClickOverlay:true })
       })
+      // .catch(err => {
+      //   Dialog({ message: err, closeOnClickOverlay:true })
+      // })
     }
   }
 }
