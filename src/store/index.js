@@ -1,6 +1,13 @@
 
 import Vue from 'vue'
 import Vuex from 'vuex'
+import cinema from "./module/cinemamodule"
+import tabbar from "./module/tabbarmodule"
+import city from "./module/citymodule"
+
+
+// 引入对于vuex的持久化存储
+import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex)
 const store = new Vuex.Store({
@@ -21,3 +28,5 @@ const store = new Vuex.Store({
     city // 城市的模块
   }
 })
+
+export default store

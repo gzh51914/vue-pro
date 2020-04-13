@@ -13,7 +13,6 @@ export default {
   components:{
     Tabbar
   },
- 
  computed:{
     ...mapState("tabbar", ["isTabbarShow"])
   }

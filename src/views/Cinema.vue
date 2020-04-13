@@ -7,7 +7,7 @@
       </div>
       <div class="center">影院</div>
       <div class="right" @click="handleChangePage('/cinema/search')">
-        <img src="/sousuo.png" alt />
+        <img src="../assets/sousuo.jpg" alt />
       </div>
     </div>
 
@@ -85,7 +85,7 @@ export default {
   },
   methods: {
     clickme() {
-      alert(1111111111111111111);
+      alert("骗你的...");
     },
     handleChangePage(path) {
       if (path === "/city") {
@@ -138,9 +138,49 @@ export default {
 };
 </script>
 
-
-
 <style lang="scss" scoped>
+.act{
+  color: orange;
+
+}
+.active {
+  border: 1px solid orange !important;
+  color: orange;
+}
+.title {
+  display: flex;
+  position: fixed;
+  top: 0rem;
+  left: 0rem;
+  width: 100%;
+  background: #fff;
+  height: 0.4rem;
+  line-height: 0.4rem;
+  padding: 0 0.1rem;
+  z-index: 10;
+  div {
+    flex: 1;
+    text-align: center;
+  }
+  .center {
+    font-size: 0.17rem;
+    color: #191a1b;
+  }
+  .left {
+    text-align: left;
+    font-size: 0.12rem;
+  }
+  .right {
+    text-align: right;
+    img {
+      width: 0.18rem;
+      height: 0.18rem;
+      position: absolute;
+      right: 0.1rem;
+      top: 0.1rem;
+    }
+  }
+}
 .active {
   border: 1px solid orange !important;
   color: orange;

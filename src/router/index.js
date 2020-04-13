@@ -2,8 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import Films from "@/views/Films"
-
-import Cinema from "@/views/Cinema"
+// import Cinema from "@/views/Cinema"
 import Center from "@/views/Center"
 import Info from "@/views/Info"
 
@@ -47,8 +46,7 @@ const routes = [{
   {
     path: '/center',
     component: Center
-  }, 
-  {
+  }, {
     path: '/info',
     component: Info
   },
@@ -56,6 +54,7 @@ const routes = [{
     path:"/login",
     component:() => import("@/views/Login")
   },
+  
   {
     path: "",
     redirect: "/films"
@@ -84,5 +83,6 @@ router.beforeEach((to, from, next) => {
     next()
   }
 })
+
 
 export default router

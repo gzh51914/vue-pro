@@ -9,7 +9,7 @@
             <div class="cinema-price">
                 <div class="price-top">
                     <span>￥</span>
-                    <span class="interge" style="font-size: 15px;">{{Math.round(data.lowPrice)/100}}</span>
+                    <span class="interge" style="font-size: 14px;">{{Math.round(data.lowPrice)/100}}</span>
                     <span> 起</span>
                 </div>
                 <span >
